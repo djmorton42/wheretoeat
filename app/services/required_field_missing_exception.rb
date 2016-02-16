@@ -1,0 +1,3 @@
+class RequiredFieldMissingException < Exception
+
+end
