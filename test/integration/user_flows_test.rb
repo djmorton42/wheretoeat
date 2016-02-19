@@ -26,6 +26,8 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     post "/user",
          '{"email":null, "password":"mypassword"}',
          { 'CONTENT_TYPE' => 'application/json' }
+
+    assert_response :bad_request
   end
 
   test "create new user without specifying password should fail with bad request" do

@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 20160208020516) do
   create_table "events", force: :cascade do |t|
     t.string   "title",                 null: false
     t.text     "description"
-    t.datetime "event_date",            null: false
+    t.datetime "event_datetime",        null: false
     t.datetime "voting_start_datetime", null: false
-    t.datetime "voting_end_date",       null: false
+    t.datetime "voting_end_datetime",   null: false
   end
 
   create_table "groups", force: :cascade do |t|
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160208020516) do
   end
 
   add_index "restaurants", ["group_id"], name: "index_restaurants_on_group_id"
+  add_index "restaurants", ["name", "group_id"], name: "index_restaurants_on_name_and_group_id", unique: true
 
   create_table "restaurants_events", force: :cascade do |t|
     t.integer "restaurant_id"

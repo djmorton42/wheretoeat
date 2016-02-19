@@ -9,5 +9,6 @@ class Restaurant < ActiveRecord::Migration
 
         add_reference :restaurants, :group, index: true
         add_foreign_key :restaurants, :group
+        add_index :restaurants, [:name, :group_id], unique: true
     end
 end

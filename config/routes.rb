@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     post 'user/:user_id/group/:group_id/restaurant' => "restaurant#create_restaurant"
     get  'user/:user_id/group/:group_id/restaurant' => "restaurant#get_restaurants"
+    get  'user/:user_id/group/:group_id/restaurant/:restaurant_id' => "restaurant#get_restaurant"
 
     post 'user/:user_id/group/:group_id/event' => "event#create_event"
 

@@ -6,6 +6,24 @@ class EventService
 #event_date
 #voting_start_datetime
 #voting_end_datetime
+
+        #TODO Make sure group belongs to user
+
+        user = User.find(user_id)
+        group = Group.find(group_id)
+
+        voters = json_body["voters"]
+
+        event = Event.create(
+            title: json_body["title"],
+            description: json_body["description"],
+            event_datetime: Time.at(json_body["event_datetime"]),
+            voting_start_datetime: Time.at(json_body["voting_start_datetime"]),
+            voting_end_datetime: Time.at(json_body["voting_end_datetime"])
+            )
+
+
+
     end
 
 
