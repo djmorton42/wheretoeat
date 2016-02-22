@@ -27,4 +27,6 @@ class UserService
             raise RequiredFieldMissingException, "password field is required"
         end
     end
+
+    private :validate_body
 end

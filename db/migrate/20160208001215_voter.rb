@@ -5,8 +5,7 @@ class Voter < ActiveRecord::Migration
             t.timestamps
         end
 
-        add_reference :voters, :groups, index: true
-        add_foreign_key :voters, :groups
+        add_index :voters, :email, unique: true
 
   end
 end

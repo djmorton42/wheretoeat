@@ -23,4 +23,6 @@ class RestaurantService
             raise RequiredFieldMissingException, "name field is required"
         end
     end
+
+    private :validate_body
 end

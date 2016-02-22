@@ -19,7 +19,26 @@ ActiveRecord::Schema.define(version: 20160208020516) do
     t.datetime "event_datetime",        null: false
     t.datetime "voting_start_datetime", null: false
     t.datetime "voting_end_datetime",   null: false
+    t.integer  "group_id"
   end
+
+  add_index "events", ["group_id"], name: "index_events_on_group_id"
+
+  create_table "events_restaurants", id: false, force: :cascade do |t|
+    t.integer "event_id",      null: false
+    t.integer "restaurant_id", null: false
+  end
+
+  add_index "events_restaurants", ["event_id"], name: "index_events_restaurants_on_event_id"
+  add_index "events_restaurants", ["restaurant_id"], name: "index_events_restaurants_on_restaurant_id"
+
+  create_table "events_voters", id: false, force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "voter_id", null: false
+  end
+
+  add_index "events_voters", ["event_id"], name: "index_events_voters_on_event_id"
+  add_index "events_voters", ["voter_id"], name: "index_events_voters_on_voter_id"
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",       null: false
@@ -42,14 +61,6 @@ ActiveRecord::Schema.define(version: 20160208020516) do
   add_index "restaurants", ["group_id"], name: "index_restaurants_on_group_id"
   add_index "restaurants", ["name", "group_id"], name: "index_restaurants_on_name_and_group_id", unique: true
 
-  create_table "restaurants_events", force: :cascade do |t|
-    t.integer "restaurant_id"
-    t.integer "event_id"
-  end
-
-  add_index "restaurants_events", ["event_id"], name: "index_restaurants_events_on_event_id"
-  add_index "restaurants_events", ["restaurant_id"], name: "index_restaurants_events_on_restaurant_id"
-
   create_table "users", force: :cascade do |t|
     t.string   "email",         null: false
     t.string   "password_hash", null: false
@@ -66,18 +77,9 @@ ActiveRecord::Schema.define(version: 20160208020516) do
     t.string   "email",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_id"
   end
 
-  add_index "voters", ["groups_id"], name: "index_voters_on_groups_id"
-
-  create_table "voters_events", force: :cascade do |t|
-    t.integer "voter_id"
-    t.integer "event_id"
-  end
-
-  add_index "voters_events", ["event_id"], name: "index_voters_events_on_event_id"
-  add_index "voters_events", ["voter_id"], name: "index_voters_events_on_voter_id"
+  add_index "voters", ["email"], name: "index_voters_on_email", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "rank",           null: false

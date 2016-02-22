@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     get  'user/:user_id/group/:group_id/restaurant' => "restaurant#get_restaurants"
     get  'user/:user_id/group/:group_id/restaurant/:restaurant_id' => "restaurant#get_restaurant"
 
-    post 'user/:user_id/group/:group_id/event' => "event#create_event"
+    post  'user/:user_id/group/:group_id/event' => "event#create_event"
+    get   'user/:user_id/group/:group_id/event/:event_id' => "event#get_event"
+    patch 'user/:user_id/group/:group_id/event/:event_id' => "event#patch_event"
+    put   'user/:user_id/group/:group_id/event/:event_id' => "event#update_event"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

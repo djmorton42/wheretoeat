@@ -21,4 +21,5 @@ class GroupService
         end
     end
 
+    private :validate_body
 end
