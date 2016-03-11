@@ -1,7 +1,6 @@
 class EventService
     @@restaurant_url_id_pattern = /.*user\/[0-9]+\/group\/[0-9]\/restaurant\/([0-9]+)/
 
-
     def create_event(json_body, user_id, group_id)
         #TODO Make sure group belongs to user
 
@@ -23,7 +22,17 @@ class EventService
                 )
 
             event.restaurants += get_restaurant_models restaurants
-            event.voters += get_voter_models voter_emails
+
+            voter_models = get_voter_models voter_emails
+
+            event.voters += voter_models
+
+            voter_models.each do |voter_model|
+                VoterEventKey.create(
+                    event: event,
+                    voter: voter_model,
+                    key: SecureRandom.uuid)
+            end
 
             return event
         end
@@ -63,8 +72,6 @@ class EventService
             end
 
             event.restaurants += Restaurant.find(restaurant_ids_to_add)
-
-
 
             event.title = json_body["title"]
             event.description = json_body["description"]

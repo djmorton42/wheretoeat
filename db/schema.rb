@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208020516) do
+ActiveRecord::Schema.define(version: 20160310212000) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title",                 null: false
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 20160208020516) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "voter_event_keys", force: :cascade do |t|
+    t.string   "key",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "voter_id"
+    t.integer  "event_id"
+  end
+
+  add_index "voter_event_keys", ["event_id"], name: "index_voter_event_keys_on_event_id"
+  add_index "voter_event_keys", ["voter_id"], name: "index_voter_event_keys_on_voter_id"
 
   create_table "voters", force: :cascade do |t|
     t.string   "email",      null: false
